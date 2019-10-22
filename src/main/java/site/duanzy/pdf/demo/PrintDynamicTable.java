@@ -22,7 +22,7 @@ public class PrintDynamicTable {
     //每页显示多少行   <合同评审单>
     private static int lineNum = 10;
     //打印类型   目前 cargo:货物单   contract:合同评审单    完成
-    private static String printType = "contract";
+    private static String printType = "cargo";
     //分页参数
     private static int page = 0;
     //合并行用到    <合同评审单>
