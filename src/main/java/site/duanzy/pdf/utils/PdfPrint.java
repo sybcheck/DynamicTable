@@ -2,6 +2,7 @@ package site.duanzy.pdf.utils;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPageable;
+
 import javax.print.PrintService;
 import java.awt.print.*;
 import java.io.*;
@@ -32,6 +33,7 @@ public class PdfPrint {
             System.out.println("------");
             System.out.println("使用的打印机名称为 " + printName);
             //匹配指定打印机
+            System.out.println("匹配打印机...");
             for (PrintService ps : PrinterJob.lookupPrintServices()) {
                 psName = ps.toString();
                 // 选用指定打印机
@@ -44,6 +46,7 @@ public class PdfPrint {
             }
 
             //使用默认的打印机
+//            /System.out.println("默认打印机...");
 //            PrintService defaultPrintService= PrintServiceLookup.lookupDefaultPrintService();
 //            System.out.println(defaultPrintService.getName()+"默认打印机的名字");
 //            job.setPrintService(defaultPrintService);
@@ -65,7 +68,7 @@ public class PdfPrint {
 //            book.append(new PDFPrintable(document, Scaling.ACTUAL_SIZE), pageFormat, 1);
 //            job.setPageable(book);
             // 开始打印
-           // System.out.println("文档名为 " + "document");
+            // System.out.println("文档名为 " + "document");
             System.out.println("开始打印...");
             job.print();
             System.out.println("打印完毕...");
