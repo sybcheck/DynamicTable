@@ -1,11 +1,11 @@
-package site.duanzy.pdf.utils;
+package site.pdf.utils;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPageable;
 
 import javax.print.PrintService;
-import java.awt.print.*;
-import java.io.*;
+import java.awt.print.PrinterJob;
+import java.io.ByteArrayOutputStream;
 
 public class PdfPrint {
     public void print(ByteArrayOutputStream bos) {
@@ -28,17 +28,13 @@ public class PdfPrint {
             //==
             for (PrintService ps : PrinterJob.lookupPrintServices()) {
                 psName = ps.toString();
-                System.out.println("遍历所有的打印机-  " + psName);
+                System.out.println(psName);
             }
-            System.out.println("------");
-            System.out.println("使用的打印机名称为 " + printName);
             //匹配指定打印机
-            System.out.println("匹配打印机...");
             for (PrintService ps : PrinterJob.lookupPrintServices()) {
                 psName = ps.toString();
                 // 选用指定打印机
                 if (psName.equals(printName)) {
-                    System.out.println("打印机匹配成功...");
                     // isChoose = true;
                     job.setPrintService(ps);
                     break;

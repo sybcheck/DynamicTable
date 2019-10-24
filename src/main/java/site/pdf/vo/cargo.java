@@ -1,6 +1,4 @@
-package site.duanzy.pdf.pojo;
-
-import com.itextpdf.text.*;
+package site.pdf.vo;
 
 import java.io.Serializable;
 

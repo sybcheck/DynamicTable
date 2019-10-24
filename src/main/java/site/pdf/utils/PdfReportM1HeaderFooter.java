@@ -1,20 +1,9 @@
-package site.duanzy.pdf.utils;
+package site.pdf.utils;
+
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 
 import java.io.IOException;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPageEventHelper;
-import com.itextpdf.text.pdf.PdfTemplate;
-import com.itextpdf.text.pdf.PdfWriter;
 
 
 public class PdfReportM1HeaderFooter extends PdfPageEventHelper {
@@ -74,7 +63,7 @@ public class PdfReportM1HeaderFooter extends PdfPageEventHelper {
     /**
      * TODO 文档打开时创建模板
      *
-     * @see com.itextpdf.text.pdf.PdfPageEventHelper#onOpenDocument(com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+     * @see PdfPageEventHelper#onOpenDocument(PdfWriter, Document)
      */
     public void onOpenDocument(PdfWriter writer, Document document) {
         total = writer.getDirectContent().createTemplate(50, 50);// 共 页 的矩形的长宽高
@@ -83,7 +72,7 @@ public class PdfReportM1HeaderFooter extends PdfPageEventHelper {
     /**
      * TODO 关闭每页的时候，写入页眉，写入'第几页共'这几个字。
      *
-     * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+     * @see PdfPageEventHelper#onEndPage(PdfWriter, Document)
      */
     public void onEndPage(PdfWriter writer, Document document) {
 
@@ -125,7 +114,7 @@ public class PdfReportM1HeaderFooter extends PdfPageEventHelper {
     /**
      * TODO 关闭文档时，替换模板，完成整个页眉页脚组件
      *
-     * @see com.itextpdf.text.pdf.PdfPageEventHelper#onCloseDocument(com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
+     * @see PdfPageEventHelper#onCloseDocument(PdfWriter, Document)
      */
     public void onCloseDocument(PdfWriter writer, Document document) {
         // 7.最后一步了，就是关闭文档的时候，将模板替换成实际的 Y 值,至此，page x of y 制作完毕，完美兼容各种文档size。

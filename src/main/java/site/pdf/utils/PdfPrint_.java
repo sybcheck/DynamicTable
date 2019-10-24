@@ -1,10 +1,10 @@
-package site.duanzy.pdf.utils;
+package site.pdf.utils;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPrintable;
 import org.apache.pdfbox.printing.Scaling;
 
-import javax.print.*;
+import javax.print.PrintService;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.standard.Sides;
 import java.awt.print.Book;
@@ -14,9 +14,9 @@ import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 
-public class p {
+public class PdfPrint_ {
     public static void main(String[] args) throws Exception {
-        String pdfFile = "D:\\carg111o.pdf";//文件路径
+        String pdfFile = "D:\\xxxx.pdf";//文件路径
         File file = new File(pdfFile);
         String printerName = "Microsoft Print to PDF";
         //打印机名包含字串

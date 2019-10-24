@@ -1,4 +1,4 @@
-package site.duanzy.pdf.pojo;
+package site.pdf.vo;
 
 public class contract {
     private int seq;

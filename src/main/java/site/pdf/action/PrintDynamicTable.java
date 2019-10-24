@@ -1,15 +1,19 @@
-package site.duanzy.pdf.demo;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.io.*;
+package site.pdf.action;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
-import site.duanzy.pdf.pojo.contract;
-import site.duanzy.pdf.utils.PdfPrint;
-import site.duanzy.pdf.utils.PdfReportM1HeaderFooter;
-import site.duanzy.pdf.utils.PrintUtils;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import site.pdf.utils.PdfPrint;
+import site.pdf.utils.PdfReportM1HeaderFooter;
+import site.pdf.utils.PrintUtils;
+import site.pdf.vo.contract;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author syb
