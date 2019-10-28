@@ -2,7 +2,7 @@ package site.pdf.vo;
 
 import java.io.Serializable;
 
-public class cargo implements Serializable {
+public class Cargo implements Serializable {
     //车号
     private String carNumber;
     //发货地点

@@ -1,6 +1,6 @@
 package site.pdf.vo;
 
-public class contract {
+public class Contract {
     private int seq;
     private String sampleName;
     private String batchNum;

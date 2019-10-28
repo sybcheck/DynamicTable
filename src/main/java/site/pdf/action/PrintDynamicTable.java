@@ -1,17 +1,21 @@
 package site.pdf.action;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import site.pdf.utils.PdfPrint;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import site.pdf.utils.PdfReportM1HeaderFooter;
 import site.pdf.utils.PrintUtils;
-import site.pdf.vo.contract;
+import site.pdf.vo.Contract;
+import sun.misc.BASE64Encoder;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +24,17 @@ import java.util.List;
  * @version v1.0
  * @Description: 创建table动态表格
  */
+@RestController
+@RequestMapping("/action/")
 public class PrintDynamicTable {
     //是否每页带头部    <合同评审单>
     private static boolean isOfHead = true;
     //每页显示多少行   <合同评审单>
     private static int lineNum = 10;
     //打印类型   目前 cargo:货物单   contract:合同评审单    完成
-    private static String printType = "cargo";
+    private static String printType = "contract";
     //分页参数
-    private static int page = 0;
+    private static int page;
     //合并行用到    <合同评审单>
     private static String split = "<brb>";
     //上下合并那一列
@@ -36,8 +42,17 @@ public class PrintDynamicTable {
 
     private static PrintUtils printUtils;
 
-    public static void main(String[] args) throws IOException, DocumentException {
-
+    /**
+     * 打印pdf 返回流到前段页面 前段页面解析 调用浏览器打印。
+     *
+     * @throws IOException
+     * @throws DocumentException
+     */
+    @RequestMapping(value = "/print")
+    @ResponseBody
+    public void print(HttpServletResponse response) throws IOException, DocumentException {
+        //
+        page = 0;
         // 1.新建document对象
         Document document = new Document(PageSize.A4);
 
@@ -57,7 +72,7 @@ public class PrintDynamicTable {
         } else if (printType.equals("contract")) {
             //合同评审单打印
             //获取合同评审单数据
-            List<contract> list = getContracts();
+            List<Contract> list = getContracts();
             //对象转数组
             List<String[]> listStrs = objectToArray(list);
             int time = (int) Math.ceil((float) listStrs.size() / lineNum);
@@ -69,16 +84,35 @@ public class PrintDynamicTable {
                 }
             }
         }
+
         // 5.关闭文档  各种流
-        document.close();//关闭二进制数组流
+        document.close();
+        //关闭二进制数组流
         bos.flush();
         bos.close();
-        //书写器 关闭  （书写器是将表写入到磁盘中的）
+        //书写器 关闭
         writer.close();
 
-        //调用打印机   传入数组流
-        new PdfPrint().print(bos);
+        //调用打印机
+        //  new PdfPrint().print(bos);
+        try {
+            byte[] bytes = bos.toByteArray();
+            BASE64Encoder encoder = new BASE64Encoder();
+//        String data = encoder.encode(bytes);
+            response.reset();
+            OutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "; filename=" + "table.pdf");
+            outputStream.write(bytes, 0, bytes.length);
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        byte[] bytes = bos.toByteArray();
+//
+//        return bytes;
     }
+
 
     /**
      * 合同评审单打印
@@ -231,7 +265,7 @@ public class PrintDynamicTable {
      * @param list
      * @return
      */
-    private static List<String[]> objectToArray(List<contract> list) {
+    private static List<String[]> objectToArray(List<Contract> list) {
         List<String[]> listStrs = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             String[] strings = new String[9];
@@ -279,10 +313,10 @@ public class PrintDynamicTable {
      *
      * @return
      */
-    private static List<contract> getContracts() {
-        List<contract> list = new ArrayList<>();
+    private static List<Contract> getContracts() {
+        List<Contract> list = new ArrayList<>();
         for (int i = 0; i < 27; i++) {
-            contract contract = new contract();
+            Contract contract = new Contract();
             contract.setSeq(i + 1);
             contract.setSampleName("杀菌水");
             contract.setBatch("22");
