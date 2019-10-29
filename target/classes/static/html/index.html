@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>测试标题</title>
+    <title>打印</title>
 </head>
 <body>
 <div>
-    <button onclick="print3()">打印</button>
+    <button onclick="fcall()">打印</button>
 </div>
-<a class="aPdf" style="display: none" href="/action/print" target="_Blank"></a>
+<!--<div>-->
+<!--<a class="aPdf" style="display: none" href="/action/print" target=""></a>-->
+<!--</div>-->
 </body>
 </html>
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/swprintpdf.js"></script>
 <script>
-
+    function fcall() {
+        $("body").swprintpdfCreate();
+    }
 
     function print() {
         $.ajax({
@@ -131,15 +136,6 @@
     }
 
     function print3() {
-        // 转换完成，创建一个a标签用于下载
-        // var a = document.createElement('a');
-        // // a.download = 'aa.pdf';
-        // a.href = "/action/print";
-        // //a.style.display = "none";
-        // $("body").append(a);    // 修复firefox中无法触发click
-        // a.click();
-        // window.print(a);
-        // window.print();
         $("a")[0].click();
     }
 </script>

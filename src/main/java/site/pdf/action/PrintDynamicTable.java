@@ -32,7 +32,7 @@ public class PrintDynamicTable {
     //每页显示多少行   <合同评审单>
     private static int lineNum = 10;
     //打印类型   目前 cargo:货物单   contract:合同评审单    完成
-    private static String printType = "contract";
+    private static String printType = "cargo";
     //分页参数
     private static int page;
     //合并行用到    <合同评审单>
@@ -51,6 +51,7 @@ public class PrintDynamicTable {
     @RequestMapping(value = "/print")
     @ResponseBody
     public void print(HttpServletResponse response) throws IOException, DocumentException {
+        System.out.println(printType + "类型为");
         //
         page = 0;
         // 1.新建document对象
@@ -167,10 +168,10 @@ public class PrintDynamicTable {
         columns.add(2);
         columns.add(3);
         columns.add(4);
-        columns.add(5);
-        columns.add(6);
-        columns.add(7);
-        columns.add(8);
+//        columns.add(5);
+//        columns.add(6);
+//        columns.add(7);
+//        columns.add(8);
         int i = page * lineNum;
         for (; i < listStrs.size(); i++) {
             if (columns.contains(0)) {
@@ -315,7 +316,7 @@ public class PrintDynamicTable {
      */
     private static List<Contract> getContracts() {
         List<Contract> list = new ArrayList<>();
-        for (int i = 0; i < 27; i++) {
+        for (int i = 0; i < 15; i++) {
             Contract contract = new Contract();
             contract.setSeq(i + 1);
             contract.setSampleName("杀菌水");
